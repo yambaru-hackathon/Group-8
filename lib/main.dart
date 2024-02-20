@@ -47,6 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(widget.title),
+      ),
       body: _pageWidgets.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: false,
