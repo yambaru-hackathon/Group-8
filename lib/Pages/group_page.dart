@@ -6,7 +6,16 @@ class GroupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Group')),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        title: const Text(
+          'Group',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
