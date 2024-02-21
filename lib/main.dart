@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goup8_app/Pages/account_page.dart';
-import 'package:goup8_app/Pages/group_page.dart';
+import 'package:goup8_app/Pages/GroupPages/group_page.dart';
 import 'package:goup8_app/Pages/map_page.dart';
 import 'package:goup8_app/Pages/schedule_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
