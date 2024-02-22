@@ -30,8 +30,8 @@ class GroupPage extends StatelessWidget {
                 filled: true, // 塗りつぶしを有効にする
                 fillColor: Colors.grey[200], // 塗りつぶしの色をグレーに設定
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10), // 枠の角を丸くする
-                  borderSide: BorderSide.none, // 枠線を非表示にする
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
                 ),
               ),
               keyboardType: TextInputType.text,

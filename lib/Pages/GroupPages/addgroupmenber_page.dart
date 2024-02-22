@@ -39,12 +39,9 @@ class AddNewGroupMenber extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-          side: const BorderSide(
-            color: Colors.blue,
-          ),
         ),
         onPressed: () {
           Navigator.push(
@@ -57,7 +54,7 @@ class AddNewGroupMenber extends StatelessWidget {
         label: const Text(
           'next',
           style: TextStyle(
-            color: Colors.blue,
+            color: Colors.white,
             fontSize: 15,
           ),
         ),
