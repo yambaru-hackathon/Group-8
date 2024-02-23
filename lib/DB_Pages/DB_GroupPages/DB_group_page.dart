@@ -1,14 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';                 // firebaseに接続するパッケージ
+import 'package:cloud_firestore/cloud_firestore.dart';  // firebaseに接続するパッケージ
+import 'package:flutter/material.dart';               
 
 class DB_group_page_class {
 
   final db = FirebaseFirestore.instance;                // dbの初期化
 
-  Future<void> readGroupSearch(value) async {           // 絞り込みのread関数
+  Future<void> readGroupSearch(value) async {           // 絞り込み検索のread関数
     final snapshot = await db.collection('GroupID')
-      .where('name', isEqualTo: value)                  // テスト団体のみ
-      .orderBy('authority')                                  // 名前順
+      .where('name', isEqualTo: value)                  // DBにあるグループ名と一致する場合のみ
+      .orderBy('authority')                             // 名前順
       .limit(10)                                        // 10だけ表示
       .get();
 
@@ -17,11 +17,10 @@ class DB_group_page_class {
       (doc) => doc.data().toString(),
     );
     final GroupID = docs.join();
-    if(GroupID.isEmpty == false){
-      debugPrint(GroupID);
-    } else {
+    if(GroupID.isEmpty == false){                         // GroupIDが空じゃなかったら
+      debugPrint(GroupID);                                // 表示
+    } else {                                              // 空なら
       debugPrint('該当するグループが見つかりませんでした');
     }
-    
   } 
 }  
