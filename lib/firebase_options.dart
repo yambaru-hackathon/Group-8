@@ -25,7 +25,14 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
+<<<<<<< HEAD
         return macos;
+=======
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+>>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -68,6 +75,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'group8-app-6aab4.appspot.com',
     iosBundleId: 'com.example.goup8App',
   );
+<<<<<<< HEAD
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDa0oSOi_0stTCft84QbMFutHGY44ZrAi8',
@@ -77,4 +85,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'group8-app-6aab4.appspot.com',
     iosBundleId: 'com.example.goup8App.RunnerTests',
   );
+=======
+>>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
 }

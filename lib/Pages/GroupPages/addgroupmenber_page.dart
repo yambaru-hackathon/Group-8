@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:group8_app/Pages/GroupPages/groupdetail_page.dart';
+=======
+import 'package:goup8_app/Pages/GroupPages/groupdetail_page.dart';
+>>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
 
 class AddNewGroupMenber extends StatelessWidget {
   const AddNewGroupMenber({Key? key}) : super(key: key);
@@ -39,12 +43,18 @@ class AddNewGroupMenber extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+<<<<<<< HEAD
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: const BorderSide(
             color: Colors.blue,
           ),
+=======
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+>>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
         ),
         onPressed: () {
           Navigator.push(
@@ -57,7 +67,11 @@ class AddNewGroupMenber extends StatelessWidget {
         label: const Text(
           'next',
           style: TextStyle(
+<<<<<<< HEAD
             color: Colors.blue,
+=======
+            color: Colors.white,
+>>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
             fontSize: 15,
           ),
         ),
