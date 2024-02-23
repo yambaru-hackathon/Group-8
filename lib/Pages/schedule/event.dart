@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
-
 class Event {
   final String title;
-  Event({@required this.title});
+  Event({this.title = ""}); // デフォルト値を指定
 
   String toString() => this.title;
 }
