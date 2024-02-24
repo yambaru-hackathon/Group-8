@@ -45,7 +45,7 @@ class GroupPage extends StatelessWidget {
                   textInputAction: TextInputAction.search,
                   onChanged: (value) {},
                   onSubmitted: (value) {
-                    // テスト検索部分
+                    // 検索部分
                     if (value.isEmpty != true) {
                       // エンターキーを押した時文字列が空じゃないなら
                       final DB_group_page =
@@ -53,7 +53,7 @@ class GroupPage extends StatelessWidget {
                       DB_group_page.readGroupSearch(
                           value); // DB_group_pageのreadGroupSearch(value)関数を実行
                     }
-                    // テスト検索部分
+                    // 検索部分
                   },
                 ),
               ),
@@ -61,7 +61,7 @@ class GroupPage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 20, left: 30),
                 child: const Text(
-                  '作成したグループ',
+                  '編集できるグループ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
