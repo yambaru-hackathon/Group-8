@@ -1,20 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:goup8_app/Pages/account_page.dart';
 import 'package:goup8_app/Pages/GroupPages/group_page.dart';
 import 'package:goup8_app/Pages/map_page.dart';
-import 'package:goup8_app/Pages/schedule_page.dart';
+import 'package:goup8_app/Pages/schedule/schedule_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
-import 'package:goup8_app/DB_main.dart';  
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   final db = FirebaseFirestore.instance;
