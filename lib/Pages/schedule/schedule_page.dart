@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:group8_app/Pages/schedule/event.dart';
+import 'package:goup8_app/Pages/schedule/event.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
@@ -10,11 +10,17 @@ class SchedulePage extends StatefulWidget {
 
 class _CalendarState extends State<SchedulePage> {
   late final Map<DateTime, List<Event>> selectedEvents;
+  final List<Event> events = [];
+
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
   TextEditingController _eventController = TextEditingController();
+  TextEditingController _locationController = TextEditingController();
+  TextEditingController _datetimeController = TextEditingController();
+  TextEditingController _groupController = TextEditingController();
+  TextEditingController _guestController = TextEditingController();
 
   @override
   void initState() {
@@ -29,6 +35,7 @@ class _CalendarState extends State<SchedulePage> {
   @override
   void dispose() {
     _eventController.dispose();
+    _locationController.dispose();
     super.dispose();
   }
 
@@ -119,40 +126,84 @@ class _CalendarState extends State<SchedulePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
+        onPressed: () => showModalBottomSheet(
           context: context,
-          builder: (context) => AlertDialog(
-            title: Text("Add Event"),
-            content: TextFormField(
-              controller: _eventController,
+          isScrollControlled: true,
+          builder: (context) => Container(
+            padding: EdgeInsets.all(16),
+            margin: EdgeInsets.only(top: 64),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: _eventController,
+                        decoration: InputDecoration(labelText: "Title"),
+                      ),
+                      TextFormField(
+                        controller: _locationController,
+                        decoration: InputDecoration(
+                          labelText: "Location",
+                          prefixIcon: Icon(Icons.location_on_rounded),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _datetimeController,
+                        decoration: InputDecoration(
+                          labelText: "Datetime",
+                          prefixIcon: Icon(Icons.access_time),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _groupController,
+                        decoration: InputDecoration(
+                          labelText: "Group",
+                          prefixIcon: Icon(Icons.group),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _guestController,
+                        decoration: InputDecoration(
+                          labelText: "Guest",
+                          prefixIcon: Icon(Icons.person_2),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      child: Text("Cancel"),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    TextButton(
+                      child: Text("Ok"),
+                      onPressed: () {
+                        // 入力されたイベント情報を取得
+                        String title = _eventController.text;
+                        String Location = _locationController.text;
+                        // ... その他の入力項目を取得
+                        // イベント情報を Event オブジェクトに格納
+                        Event newEvent = Event(
+                          title: title,
+                          Location: Location,
+                        );
+                        // リストにイベントを追加
+                        setState(() {
+                          events.add(newEvent);
+                        });
+                        // カレンダーを更新する (必要に応じて)
+                        // モーダルを閉じる
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
-            actions: [
-              TextButton(
-                child: Text("Cancel"),
-                onPressed: () => Navigator.pop(context),
-              ),
-              TextButton(
-                child: Text("Ok"),
-                onPressed: () {
-                  if (_eventController.text.isEmpty) {
-                  } else {
-                    if (selectedEvents[selectedDay] != null) {
-                      selectedEvents[selectedDay]!.add(
-                        Event(title: _eventController.text),
-                      );
-                    } else {
-                      selectedEvents[selectedDay] = [
-                        Event(title: _eventController.text)
-                      ];
-                    }
-                  }
-                  Navigator.pop(context);
-                  _eventController.clear();
-                  setState(() {});
-                  return;
-                },
-              ),
-            ],
           ),
         ),
         label: Text("Add Event"),

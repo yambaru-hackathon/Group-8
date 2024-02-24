@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-<<<<<<< HEAD
-class NewGroupDetail extends StatelessWidget {
-  const NewGroupDetail({super.key});
-=======
 class NewGroupDetail extends StatefulWidget {
   const NewGroupDetail({Key? key}) : super(key: key);
 
@@ -13,7 +9,6 @@ class NewGroupDetail extends StatefulWidget {
 
 class _NewGroupDetailState extends State<NewGroupDetail> {
   int? _selectedPermission;
->>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +19,6 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
           '新しいグループを作成',
         ),
       ),
-<<<<<<< HEAD
-=======
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -106,7 +99,7 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                 backgroundColor: Colors.blue,
               ),
               child: const Text(
-                'Creat',
+                'Create',
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -118,7 +111,6 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
           )
         ],
       ),
->>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
     );
   }
 }

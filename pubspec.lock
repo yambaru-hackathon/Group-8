@@ -136,7 +136,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
   intl:
     dependency: "direct main"
     description:
@@ -145,8 +144,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.19.0"
-=======
->>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
   js:
     dependency: transitive
     description:
@@ -155,7 +152,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
-<<<<<<< HEAD
   leak_tracker:
     dependency: transitive
     description:
@@ -180,8 +176,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-=======
->>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
   lints:
     dependency: transitive
     description:
@@ -221,11 +215,7 @@ packages:
       sha256: "087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
     version: "1.9.0"
-=======
-    version: "1.8.3"
->>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -234,7 +224,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-<<<<<<< HEAD
   simple_gesture_detector:
     dependency: transitive
     description:
@@ -243,8 +232,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1"
-=======
->>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
   sky_engine:
     dependency: transitive
     description: flutter

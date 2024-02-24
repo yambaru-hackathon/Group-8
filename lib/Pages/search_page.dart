@@ -5,12 +5,34 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-<<<<<<< HEAD
-      appBar: AppBar(title: const Text('Search')),
-=======
-      appBar: AppBar(title: const Text('Serch')),
->>>>>>> d4da72a6fc394fdd44af7364289b529c0b9726d8
-    );
+    final focusNode = FocusNode();
+    return Focus(
+        focusNode: focusNode,
+        child: GestureDetector(
+          onTap: focusNode.requestFocus,
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              backgroundColor: Colors.blue,
+              title: SizedBox(
+                child: TextField(
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: '@ ステータス   # 場所',
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  // 入力された値を保存
+                  // onSubmitted: (text) => _submission(text),
+                  onSubmitted: (value) => (),
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
