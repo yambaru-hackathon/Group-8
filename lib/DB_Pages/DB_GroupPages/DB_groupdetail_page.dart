@@ -7,7 +7,6 @@ import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_addgroupmenber_page.dart'; /
 class DB_groupdetail_page_class {
 
   final db = FirebaseFirestore.instance;                // dbの初期化
-  DB_addgroupmember_page_class DB_addgroupmember_page = DB_addgroupmember_page_class();
 
   Future<void> readGroupSearch(value) async {           // 絞り込み検索のread関数
     final snapshot = await db.collection('Group')       // Groupテーブルにある
