@@ -1,82 +1,182 @@
 import 'package:flutter/material.dart';
-import 'package:goup8_app/Pages/GroupPages/addgroupmember_page.dart';
-import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_group_page.dart'; // DB関数のインポート
+import 'package:flutter/widgets.dart';
+import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_group_page.dart';
+import 'package:goup8_app/Pages/GroupPages/group_page.dart';
+import 'package:goup8_app/Pages/GroupPages/selectperson_page.dart';
 
-class GroupPage extends StatelessWidget {
-  const GroupPage({Key? key}) : super(key: key);
+class NewGroupDetail extends StatefulWidget {
+  const NewGroupDetail({Key? key}) : super(key: key);
+
+  @override
+  _NewGroupDetailState createState() => _NewGroupDetailState();
+}
+
+class _NewGroupDetailState extends State<NewGroupDetail> {
+  int? _selectedPermission;
+  bool _selectperson = false;
+  final focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-        title: const Text(
-          'Group',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // 左寄りにする
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon:
-                    const Icon(Icons.search, color: Colors.blue), // 検索アイコンを追加
-                hintText: 'グループを検索',
-                filled: true, // 塗りつぶしを有効にする
-                fillColor: Colors.grey[200], // 塗りつぶしの色をグレーに設定
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.search,
-              onChanged: (value) {},
-              onSubmitted: (value) {
-                // テスト検索部分
-                if(value.isEmpty != true) {                    // エンターキーを押した時文字列が空じゃないなら
-                  final DB_group_page = DB_group_page_class(); // DB_group_pageのDB_group_page_classを参照
-                  DB_group_page.readGroupSearch(value);        // DB_group_pageのreadGroupSearch(value)関数を実行
-                }
-                // テスト検索部分
-              },
+    return Focus(
+      focusNode: focusNode,
+      child: GestureDetector(
+        onTap: focusNode.requestFocus,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text(
+              '新しいグループを作成',
             ),
           ),
-
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Container(
-                margin: const EdgeInsets.only(top: 20, left: 30),
+                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.group),
+                      iconSize: 50,
+                    ),
+                    Flexible(
+                      child: TextField(
+                        maxLength: 20,
+                        maxLines: 1,
+                        decoration: const InputDecoration(
+                          hintText: "グループ名を入力",
+                          labelText: "Group Name",
+                        ),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.search,
+                        onChanged: (value) {},
+                        onSubmitted: (value) {
+                          // テスト検索部分
+                          if (value.isEmpty != true) {
+                            // エンターキー押したとき文字列が空じゃないなら
+                            final DB_group_page =
+                                DB_group_page_class(); // DB_group_pageのDB_group_page_classを参照
+                            DB_group_page.readGroupSearch(
+                                value); // DB_group_pageのreadGroupSearch(value)関数を実行
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 20,
+                  left: 20,
+                ),
                 child: const Text(
-                  '作成したグループ',
+                  'グループ編集の権限',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                 ),
               ),
-              // ListView.builder(),  ここで作ったグループを取得してリストを表示する
+              RadioListTile<int>(
+                title: const Text('全ての人に許可'),
+                value: 1,
+                groupValue: _selectedPermission,
+                dense: true,
+                onChanged: (int? value) {
+                  setState(() {
+                    _selectedPermission = value;
+                    _selectperson = false;
+                  });
+                },
+              ),
+              RadioListTile<int>(
+                title: const Text('許可しない'),
+                value: 2,
+                groupValue: _selectedPermission,
+                dense: true,
+                onChanged: (int? value) {
+                  setState(() {
+                    _selectedPermission = value;
+                    _selectperson = false;
+                  });
+                },
+              ),
+              RadioListTile<int>(
+                title: const Text('許可する人を選択する'),
+                value: 3,
+                groupValue: _selectedPermission,
+                dense: true,
+                onChanged: (int? value) {
+                  setState(() {
+                    _selectedPermission = value;
+                    _selectperson = true;
+                  });
+                },
+              ),
+              Visibility(
+                visible: _selectperson,
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: _selectedPermission == 3
+                              ? () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SelectPerson(),
+                                    ),
+                                  );
+                                }
+                              : null,
+                          icon: const Icon(
+                            Icons.add_circle_outline,
+                            size: 50,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const Text(
+                          'add person',
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Expanded(child: SizedBox.shrink()),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(300, 50),
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text(
+                    'Creat',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
             ],
-          ),
-          //creat button
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.blue,
-            shape: const CircleBorder(),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AddNewGroupMenber()),
-              );
-            },
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
           ),
         ),
       ),
