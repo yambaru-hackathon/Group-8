@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goup8_app/Pages/GroupPages/groupdetail_page.dart';
+import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_addgroupmenber_page.dart'; //DB関数のインポート
 
 class AddNewGroupMenber extends StatelessWidget {
   const AddNewGroupMenber({Key? key}) : super(key: key);
@@ -33,7 +34,14 @@ class AddNewGroupMenber extends StatelessWidget {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.search,
               onChanged: (value) {},
-              onSubmitted: (value) {},
+              onSubmitted: (value) {
+                // テスト検索部分
+                if(value.isEmpty != true) {                                               // エンターキーを押した時文字列が空じゃないなら
+                  final DB_addgroupmember_page = DB_addgroupmember_page_class();          // DB_group_pageのDB_group_page_classを参照
+                  DB_addgroupmember_page.readUserSearch(value);                           // DB_group_pageのreadGroupSearch(value)関数を実行
+                }
+                // テスト検索部分
+              },
             ),
           ),
         ],
