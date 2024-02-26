@@ -77,7 +77,7 @@ class GroupPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const AddNewGroupMenber()),
+                    builder: (context) => AddNewGroupMenber()),
               );
             },
             child: const Icon(

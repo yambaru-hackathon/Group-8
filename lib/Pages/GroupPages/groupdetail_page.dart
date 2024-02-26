@@ -17,6 +17,8 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
   bool _selectperson = false;
   final focusNode = FocusNode();
 
+  final DB_groupdetail_page = DB_groupdetail_page_class();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
+
   @override
   Widget build(BuildContext context) {
     return Focus(
@@ -57,8 +59,9 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                         onSubmitted: (value) {
                            // 検索部分
                           if(value.isEmpty != true) {                                 // エンターキーを押した時文字列が空じゃないなら
-                            final DB_groupdetail_page = DB_groupdetail_page_class();  // DB_groupdetail_pageのDB_groupdetail_page_classを参照
+                          
                             DB_groupdetail_page.readGroupSearch(value);               // DB_groupdetail_pageのreadGroupSearch(value)関数を実行
+
                           }
                           // 検索部分
                         },
@@ -159,7 +162,6 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                 child: ElevatedButton(
                   onPressed: () {
 
-                    final DB_groupdetail_page = DB_groupdetail_page_class();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
                     DB_groupdetail_page.createGroup();                        //  DB_groupdetail_pageのcreateGroup()関数を実行
 
                     Navigator.popUntil(context, (route) => route.isFirst);
