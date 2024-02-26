@@ -49,19 +49,37 @@ class MapPage extends StatelessWidget {
           )
         ],
       ),
-      body: const SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: [
-            Text(
-              'Area Name',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 30,
-              ),
+      body: Row(
+        children: [
+          // const SizedBox(
+          //   width: double.infinity,
+          //   child: Column(
+          //     children: [
+          //       Text(
+          //         'Area Name',
+          //         style: TextStyle(
+          //           color: Colors.grey,
+          //           fontSize: 30,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          InteractiveViewer(
+            // ignore: deprecated_member_use
+            alignPanAxis: false,
+            constrained: true,
+            panEnabled: true,
+            scaleEnabled: true,
+            boundaryMargin: const EdgeInsets.all(double.infinity),
+            minScale: 0.1,
+            maxScale: 10.0,
+            child: Image.asset(
+              'images/創造実践塔1F.png',
+              fit: BoxFit.contain,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

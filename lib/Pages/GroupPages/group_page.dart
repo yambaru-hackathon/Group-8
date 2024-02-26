@@ -61,7 +61,7 @@ class GroupPage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 20, left: 30),
                 child: const Text(
-                  '作成したグループ',
+                  '編集できるグループ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
