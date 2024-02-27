@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_group_page.dart';
 import 'package:goup8_app/Pages/GroupPages/selectperson_page.dart';
+import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_groupdetail_page.dart'; //DB関数のインポート
 
 class NewGroupDetail extends StatefulWidget {
   const NewGroupDetail({Key? key}) : super(key: key);
@@ -11,12 +12,16 @@ class NewGroupDetail extends StatefulWidget {
 }
 
 class _NewGroupDetailState extends State<NewGroupDetail> {
+
+  final DB_groupdetail_page = DB_groupdetail_page_class();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
+
   int? _selectedPermission;
   bool _selectperson = false;
   final focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
+
     return Focus(
       focusNode: focusNode,
       child: GestureDetector(
@@ -53,14 +58,13 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                         textInputAction: TextInputAction.search,
                         onChanged: (value) {},
                         onSubmitted: (value) {
-                          // テスト検索部分
-                          if (value.isEmpty != true) {
-                            // エンターキー押したとき文字列が空じゃないなら
-                            final DB_group_page =
-                                DB_group_page_class(); // DB_group_pageのDB_group_page_classを参照
-                            DB_group_page.readGroupSearch(
-                                value); // DB_group_pageのreadGroupSearch(value)関数を実行
+                           // 検索部分
+                          if(value.isEmpty != true) {                                 
+                            // エンターキーを押した時文字列が空じゃないなら
+                            DB_groupdetail_page.readGroupSearch(value);               // DB_groupdetail_pageのreadGroupSearch(value)関数を実行
+
                           }
+                          // 検索部分
                         },
                       ),
                     ),
@@ -158,6 +162,9 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: () {
+
+                    DB_groupdetail_page.createGroup();                          //  DB_groupdetail_pageのcreateGroup()関数を実行
+
                     Navigator.popUntil(context, (route) => route.isFirst);
                   },
                   style: ElevatedButton.styleFrom(
@@ -165,7 +172,7 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                     backgroundColor: Colors.blue,
                   ),
                   child: const Text(
-                    'Creat',
+                    'Create',
                     style: TextStyle(
                       color: Colors.white,
                     ),
