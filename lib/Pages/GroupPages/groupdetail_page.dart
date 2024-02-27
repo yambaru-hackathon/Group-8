@@ -13,14 +13,16 @@ class NewGroupDetail extends StatefulWidget {
 }
 
 class _NewGroupDetailState extends State<NewGroupDetail> {
+
+  final DB_groupdetail_page = DB_groupdetail_page_class();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
+
   int? _selectedPermission;
   bool _selectperson = false;
   final focusNode = FocusNode();
 
-  final DB_groupdetail_page = DB_groupdetail_page_class();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
-
   @override
   Widget build(BuildContext context) {
+
     return Focus(
       focusNode: focusNode,
       child: GestureDetector(
@@ -58,8 +60,8 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                         onChanged: (value) {},
                         onSubmitted: (value) {
                            // 検索部分
-                          if(value.isEmpty != true) {                                 // エンターキーを押した時文字列が空じゃないなら
-                          
+                          if(value.isEmpty != true) {                                 
+                            // エンターキーを押した時文字列が空じゃないなら
                             DB_groupdetail_page.readGroupSearch(value);               // DB_groupdetail_pageのreadGroupSearch(value)関数を実行
 
                           }
@@ -162,7 +164,7 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                 child: ElevatedButton(
                   onPressed: () {
 
-                    DB_groupdetail_page.createGroup();                        //  DB_groupdetail_pageのcreateGroup()関数を実行
+                    DB_groupdetail_page.createGroup();                          //  DB_groupdetail_pageのcreateGroup()関数を実行
 
                     Navigator.popUntil(context, (route) => route.isFirst);
                   },
