@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_group_page.dart';
-import 'package:goup8_app/Pages/GroupPages/group_page.dart';
 import 'package:goup8_app/Pages/GroupPages/selectperson_page.dart';
 
 class NewGroupDetail extends StatefulWidget {
