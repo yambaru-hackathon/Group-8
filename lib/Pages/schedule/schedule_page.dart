@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:goup8_app/Pages/schedule/event.dart';
-import 'package:goup8_app/DB_Pages/DB_schedule_page.dart';
+import 'package:group8/Pages/schedule/event.dart';
+import 'package:group8/DB_Pages/DB_schedule_page.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});

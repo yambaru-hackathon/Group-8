@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:goup8_app/Pages/GroupPages/addgroupmember_page.dart';
-import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_group_page.dart'; // DB関数のインポート
+import 'package:group8/Pages/GroupPages/addgroupmember_page.dart';
+import 'package:group8/DB_Pages/DB_GroupPages/DB_group_page.dart'; // DB関数のインポート
 
 class GroupPage extends StatelessWidget {
   const GroupPage({Key? key}) : super(key: key);
