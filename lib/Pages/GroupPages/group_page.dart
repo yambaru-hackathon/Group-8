@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goup8_app/Pages/GroupPages/addgroupmember_page.dart';
+import 'package:goup8_app/Pages/GroupPages/groupdetail_page.dart';
 import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_group_page.dart'; // DB関数のインポート
 
 class GroupPage extends StatelessWidget {
@@ -77,7 +77,7 @@ class GroupPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddNewGroupMenber()),
+                    builder: (context) => NewGroupDetail()),
               );
             },
             child: const Icon(
