@@ -121,10 +121,10 @@ class _DemoPageState extends State<DemoPage> {
 
   // ピンのリストを適当に生成
   final List<PinData> pinDataList = [
-    PinData(50, 285, "情報通信工学実験室"),
-    PinData(79, 285, "準備室1"),
-    PinData(93, 285, "準備室2"),
-    PinData(119, 285, "ネットワーク演習室"),
+    PinData(47, 285, "情報通信工学実験室"),
+    PinData(75, 285, "準備室1"),
+    PinData(90, 285, "準備室2"),
+    PinData(117, 285, "ネットワーク演習室"),
     PinData(236, 285, "調理室"),
     PinData(264, 285, "創造工房"),
     PinData(311, 285, "中央機器分析室"),
@@ -172,7 +172,9 @@ class _DemoPageState extends State<DemoPage> {
                       child: GestureDetector(
                         child: Container(
                           alignment: const Alignment(0.0, 0.0),
-                          child: Image.asset("images/map_pin_shadow.png"),
+                          child: Image.asset(
+                            "images/map_pin_shadow.png",
+                          ),
                         ),
                         onTap: () {
                           tapPin(pinData.message);
