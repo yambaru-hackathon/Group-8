@@ -121,7 +121,7 @@ class DBSchedulePageClass {
   // 予定を作成する関数
   Future<void> createSchedule() async {
 
-    final snapshot = await db.collection('Schedule')   // Groupテーブルにある
+    final snapshot = await db.collection('Schedule')   // Scheduleテーブルにある
       .orderBy('schedule_id', descending: true)        // schedule_idで降順
       .limit(1)                                        // 1取得
       .get();
@@ -135,7 +135,7 @@ class DBSchedulePageClass {
       // タイトルと日付が追加されている
       if (scheduleName != '' && dateString != DateTime(0)) {
         
-        // schedule_idが割り振られていない(最初に作成されたグループ)
+        // schedule_idが割り振られていない(最初に作成された予定)
         if(maxScheduleId == -1) {
 
           // schedule_idに0を割り振る
@@ -143,7 +143,7 @@ class DBSchedulePageClass {
 
         } else {
 
-          // 新しいグループにschedule_idを割り振る
+          // 新しい予定にschedule_idを割り振る
           scheduleId = maxScheduleId + (1);  
 
           print('加算後id確認:$scheduleId');      
@@ -152,9 +152,9 @@ class DBSchedulePageClass {
 
       } else {
 
-        debugPrint('グループの作成に失敗');
+        debugPrint('予定の作成に失敗');
 
-        //グループ作成に失敗後、変数を初期化
+        //予定作成に失敗後、変数を初期化
         dateString = DateTime(0);         // 日付
         scheduleGroupId;                  // 追加するグループ
         scheduleId = -1;                  // スケジュールID 
@@ -166,10 +166,11 @@ class DBSchedulePageClass {
 
       }
 
-    // グループの作成
+    // 予定の作成
     await db.collection('Schedule').doc().set(
       {
         'date':                     dateString,
+        'schedule_group_id':        scheduleGroupId,
         'schedule_id':              scheduleId,
         'schedule_location':        scheduleLocation,
         'schedule_members_user_id': scheduleMembersUserId,
@@ -179,7 +180,7 @@ class DBSchedulePageClass {
 
     debugPrint('予定：$scheduleNameを追加しました');
 
-    //グループ作成に失敗後、変数を初期化
+    //予定作成に失敗後、変数を初期化
     dateString = DateTime(0);         // 日付
     scheduleGroupId;                  // 追加するグループ
     scheduleId = -1;                  // スケジュールID 
