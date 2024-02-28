@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';  // firebaseに接続するパッケージ
 import 'package:flutter/material.dart';
 
-class DBSchedulePageClass {
+class SchedulePageClass {
 
   final db = FirebaseFirestore.instance; // Firestore のインスタンスを取得
 
