@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:goup8_app/Pages/schedule/event.dart';
+import 'package:goup8_app/DB_Pages/DB_schedule_page.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
@@ -9,6 +10,9 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _CalendarState extends State<SchedulePage> {
+
+  final DB_schedule_page = DBSchedulePageClass();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
+
   late final Map<DateTime, List<Event>> selectedEvents;
   final List<Event> events = [];
 
@@ -139,35 +143,91 @@ class _CalendarState extends State<SchedulePage> {
                     children: [
                       TextFormField(
                         controller: _eventController,
-                        decoration: InputDecoration(labelText: "Title"),
+                        decoration: InputDecoration(
+                          hintText: "タイトルを入力(必須)",
+                          labelText: "Title"),    // タイトル
+
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.search,
+                        onChanged: (value) {},
+                        onFieldSubmitted: (value) {
+                          // 文字列が空じゃないなら
+                          if(value.isNotEmpty) {
+                            DB_schedule_page.addTitle(value);
+                          }
+                        },
                       ),
                       TextFormField(
                         controller: _locationController,
                         decoration: InputDecoration(
-                          labelText: "Location",
+                          hintText: "場所を入力",
+                          labelText: "Location",                            // 場所
                           prefixIcon: Icon(Icons.location_on_rounded),
                         ),
+
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.search,
+                        onChanged: (value) {},
+                        onFieldSubmitted: (value) {
+                          // 文字列が空じゃないなら
+                          if(value.isNotEmpty) {
+                          DB_schedule_page.addLocation(value);
+                          }
+                        },
                       ),
                       TextFormField(
                         controller: _datetimeController,
                         decoration: InputDecoration(
-                          labelText: "Datetime",
+                          hintText: "2024-01-01 12:00:00(必須)",
+                          labelText: "Datetime",                            // 日時
                           prefixIcon: Icon(Icons.access_time),
                         ),
+
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.search,
+                        onChanged: (value) {},
+                        onFieldSubmitted: (value) {
+                          // 文字列が空じゃないなら
+                          if(value.isNotEmpty) {
+                            DB_schedule_page.addDateTime(value);
+                          }
+                        },
                       ),
                       TextFormField(
                         controller: _groupController,
                         decoration: InputDecoration(
-                          labelText: "Group",
+                          hintText: "グループ名を入力",
+                          labelText: "Group",                               // グループ
                           prefixIcon: Icon(Icons.group),
                         ),
+
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.search,
+                        onChanged: (value) {},
+                        onFieldSubmitted: (value) {
+                          // 文字列が空じゃないなら
+                          if(value.isNotEmpty) {
+                            DB_schedule_page.addGroup(value);
+                          }
+                        },
                       ),
                       TextFormField(
                         controller: _guestController,
                         decoration: InputDecoration(
-                          labelText: "Guest",
+                          hintText: "ユーザー名を入力",
+                          labelText: "Guest",                               // ゲスト
                           prefixIcon: Icon(Icons.person_2),
                         ),
+
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.search,
+                        onChanged: (value) {},
+                        onFieldSubmitted: (value) {
+                          // 文字列が空じゃないなら
+                          if(value.isNotEmpty) {
+                            DB_schedule_page.addUser(value);
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -177,11 +237,19 @@ class _CalendarState extends State<SchedulePage> {
                   children: [
                     TextButton(
                       child: Text("Cancel"),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        //スケジュールのキャンセル
+                        DB_schedule_page.resetSchedule();
+
+                        Navigator.pop(context);
+                      }
                     ),
                     TextButton(
                       child: Text("Ok"),
                       onPressed: () {
+                        //スケジュールの作成
+                        DB_schedule_page.createSchedule();
+
                         // 入力されたイベント情報を取得
                         String title = _eventController.text;
                         String Location = _locationController.text;

@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';  // firebaseに接続するパッケージ
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_addgroupmenber_page.dart';
 
 class DB_groupdetail_page_class {
-
-  final DB_addgroupmember_page = DB_addgroupmember_page_class();  // DB_addgroupmember_pageのDB_addgroupmember_page_classを参照
 
   final db = FirebaseFirestore.instance;                // dbの初期化
 
@@ -60,7 +57,9 @@ class DB_groupdetail_page_class {
       .limit(1)                                         // 1取得
       .get();
 
-      final max_group_id = snapshot.docs.isNotEmpty ? snapshot.docs.first.data()['group_id'] : 0;
+      final max_group_id = snapshot.docs.isNotEmpty
+        ? snapshot.docs.first.data()['group_id']
+        : -1;
 
       if (
         group_icon != ''                              // アイコンが設定されている
@@ -68,7 +67,7 @@ class DB_groupdetail_page_class {
         && group_name != ''                           // グループ名が設定されている
         ) {
 
-        if(max_group_id == 0){                  // group_idが割り振られていない(最初に作成されたグループ)
+        if(max_group_id == -1) {                // group_idが割り振られていない(最初に作成されたグループ)
 
           group_id = 0;                         // group_idに0を割り振る
 
