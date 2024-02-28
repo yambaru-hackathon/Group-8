@@ -1,17 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:goup8_app/Pages/account_page.dart';
 import 'package:goup8_app/Pages/GroupPages/group_page.dart';
 import 'package:goup8_app/Pages/map_page.dart';
 import 'package:goup8_app/Pages/schedule/schedule_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  options: DefaultFirebaseOptions.currentPlatform,
   );
 
   final db = FirebaseFirestore.instance;
@@ -30,15 +32,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({
+    super.key,
+  });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -53,8 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const GroupPage(),
     const AccountPage(),
   };
-
-  @override
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pageWidgets.elementAt(_currentIndex),
@@ -64,10 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.pin_drop), label: 'Map'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.perm_contact_calendar), label: 'Schedule'),
+            icon: Icon(Icons.perm_contact_calendar), label: 'Schedule'),
           BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Group'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: 'Account'),
+            icon: Icon(Icons.account_circle), label: 'Account'),
         ],
         currentIndex: _currentIndex,
         fixedColor: Colors.white,
