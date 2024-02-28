@@ -59,7 +59,7 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                         onChanged: (value) {},
                         onSubmitted: (value) {
                            // 検索部分
-                          if(value.isEmpty != true) {                                 
+                          if(value.isNotEmpty) {                                 
                             // エンターキーを押した時文字列が空じゃないなら
                             DB_groupdetail_page.readGroupSearch(value);               // DB_groupdetail_pageのreadGroupSearch(value)関数を実行
 
