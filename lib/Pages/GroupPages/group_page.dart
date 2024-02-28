@@ -40,44 +40,44 @@ class GroupPage extends StatelessWidget {
               onChanged: (value) {},
               onSubmitted: (value) {
                 // テスト検索部分
-                if(value.isEmpty != true) {                    // エンターキーを押した時文字列が空じゃないなら
-                  final DB_group_page = DB_group_page_class(); // DB_group_pageのDB_group_page_classを参照
-                  DB_group_page.readGroupSearch(value);        // DB_group_pageのreadGroupSearch(value)関数を実行
+                if (value.isEmpty != true) {
+                  // エンターキーを押した時文字列が空じゃないなら
+                  final DB_group_page =
+                      DB_group_page_class(); // DB_group_pageのDB_group_page_classを参照
+                  DB_group_page.readGroupSearch(
+                      value); // DB_group_pageのreadGroupSearch(value)関数を実行
                 }
                 // テスト検索部分
               },
             ),
           ),
 
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 30),
-                child: const Text(
-                  '作成したグループ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
+          Container(
+            margin: const EdgeInsets.only(top: 20, left: 30),
+            child: const Text(
+              '作成したグループ',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
-              // ListView.builder(),  ここで作ったグループを取得してリストを表示する
-            ],
-          ),
-          //creat button
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.blue,
-            shape: const CircleBorder(),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AddNewGroupMenber()),
-              );
-            },
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
             ),
           ),
+          // ListView.builder(),  ここで作ったグループを取得してリストを表示する
+        ],
+      ),
+      //creat button
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        shape: const CircleBorder(),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddNewGroupMenber()),
+          );
+        },
+        child: const Icon(
+          Icons.add,
+          color: Color.fromRGBO(255, 255, 255, 1),
         ),
       ),
     );

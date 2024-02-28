@@ -1,13 +1,16 @@
 class Event {
   final String title;
-  Event({this.title = "", required Location}); // デフォルト値を指定
+  final String location; // デフォルト値を指定
 
-  String toString() => this.title;
-}
+  Event({this.title = "", this.location = ""}); // デフォルト値を指定
 
-class Location {
-  final String title;
-  Location({this.title = ""});
-
-  String toString() => this.title;
+  String toString() {
+    if (title.isNotEmpty && location.isNotEmpty) {
+      return '$title - $location';
+    } else if (title.isNotEmpty) {
+      return title;
+    } else {
+      return 'No title';
+    }
+  }
 }
