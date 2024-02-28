@@ -11,7 +11,7 @@ class SchedulePage extends StatefulWidget {
 
 class _CalendarState extends State<SchedulePage> {
 
-  final DB_schedule_page = DBSchedulePageClass();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
+  final DB_schedule_page = SchedulePageClass();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
 
   late final Map<DateTime, List<Event>> selectedEvents;
   final List<Event> events = [];
