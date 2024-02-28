@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:goup8_app/Pages/account_page.dart';
+import 'package:goup8_app/Pages/qrcodescan_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
 
 void main() {
@@ -16,6 +17,19 @@ class MapPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const QRcodescanPage()),
+              );
+            },
+            icon: const Icon(
+              Icons.camera_alt,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(
