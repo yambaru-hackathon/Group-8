@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goup8_app/Pages/account_page.dart';
+import 'package:goup8_app/Pages/qrcodescan_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
 
 void main() {

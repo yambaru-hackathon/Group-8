@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:group8/components/my_button.dart';
-import 'package:group8/components/my_textfield.dart';
+import 'package:goup8_app/components/my_button.dart';
+import 'package:goup8_app/components/my_textfield.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
