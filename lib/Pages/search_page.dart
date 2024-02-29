@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goup8_app/DB_Pages/DB_search_page.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -20,15 +21,26 @@ class SearchPage extends StatelessWidget {
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
-                    hintText: '@ ステータス   # 場所',
+                    hintText: '@ グループ   # 場所  * 属性',
                     prefixIcon: Icon(
                       Icons.search,
                       color: Colors.blue,
                     ),
                   ),
-                  // 入力された値を保存
-                  // onSubmitted: (text) => _submission(text),
-                  onSubmitted: (value) => (),
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.search,
+                  onChanged: (value) {},
+                  onSubmitted: (value) {
+                    // 検索部分
+                    if (value.isEmpty != true) {
+                      // エンターキーを押した時文字列が空じゃないなら
+                      final DB_search_page =
+                          DB_search_page_class(); // DB_group_pageのDB_group_page_classを参照
+                      DB_search_page.JudgeSearch(
+                          value); // DB_group_pageのreadGroupSearch(value)関数を実行
+                    }
+                    // 検索部分
+                  },
                 ),
               ),
             ),
