@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:group8/Pages/GroupPages/addgroupmember_page.dart';
-import 'package:group8/DB_Pages/DB_GroupPages/DB_group_page.dart'; // DB関数のインポート
+import 'package:goup8_app/Pages/GroupPages/addgroupmember_page.dart';
+import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_group_page.dart'; // DB関数のインポート
 
 class GroupPage extends StatelessWidget {
   const GroupPage({Key? key}) : super(key: key);
@@ -52,32 +52,35 @@ class GroupPage extends StatelessWidget {
             ),
           ),
 
-          Container(
-            margin: const EdgeInsets.only(top: 20, left: 30),
-            child: const Text(
-              '作成したグループ',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+              Container(
+                margin: const EdgeInsets.only(top: 20, left: 30),
+                child: const Text(
+                  '編集できるグループ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
               ),
+              // ListView.builder(),  ここで作ったグループを取得してリストを表示する
+            ],
+          ),
+          //creat button
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue,
+            shape: const CircleBorder(),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddNewGroupMenber()),
+              );
+            },
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
             ),
           ),
-          // ListView.builder(),  ここで作ったグループを取得してリストを表示する
-        ],
-      ),
-      //creat button
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        shape: const CircleBorder(),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddNewGroupMenber()),
-          );
-        },
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
         ),
       ),
     );

@@ -118,12 +118,12 @@ class DBSchedulePageClass {
 
     // タイトルと日付が追加されている
     if (scheduleName != '' && dateString != DateTime(0)) {
-      // schedule_idが割り振られていない(最初に作成されたグループ)
+      // schedule_idが割り振られていない(最初に作成された予定)
       if (maxScheduleId == -1) {
         // schedule_idに0を割り振る
         scheduleId = 0;
       } else {
-        // 新しいグループにschedule_idを割り振る
+        // 新しい予定にschedule_idを割り振る
         scheduleId = maxScheduleId + (1);
 
         print('加算後id確認:$scheduleId');
@@ -131,7 +131,7 @@ class DBSchedulePageClass {
     } else {
       debugPrint('グループの作成に失敗');
 
-      //グループ作成に失敗後、変数を初期化
+      //予定作成に失敗後、変数を初期化
       dateString = DateTime(0); // 日付
       scheduleGroupId; // 追加するグループ
       scheduleId = -1; // スケジュールID
@@ -142,7 +142,7 @@ class DBSchedulePageClass {
       return;
     }
 
-    // グループの作成
+    // 予定の作成
     await db.collection('Schedule').doc().set(
       {
         'date': dateString,

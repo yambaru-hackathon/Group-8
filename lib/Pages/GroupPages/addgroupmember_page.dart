@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:group8/DB_Pages/DB_GroupPages/DB_addgroupmenber_page.dart';
-import 'package:group8/Pages/GroupPages/groupdetail_page.dart';
+import 'package:goup8_app/DB_Pages/DB_GroupPages/DB_addgroupmenber_page.dart';
+import 'package:goup8_app/Pages/GroupPages/groupdetail_page.dart';
 
 class AddNewGroupMenber extends StatelessWidget {
   final DB_addgroupmember_page =
