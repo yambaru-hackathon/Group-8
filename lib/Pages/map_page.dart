@@ -3,12 +3,18 @@ import 'dart:async';
 import 'package:goup8_app/Pages/account_page.dart';
 import 'package:goup8_app/Pages/qrcodescan_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
+import 'package:goup8_app/DB_Pages/DB_map_page.dart';
 
 void main() {
   runApp(const MapPage());
 }
 
+final DB_map_page = MapPageClass();  //  DB_DB_map_pageのMapPageClass()を参照
+
+List<String> userList = [];
+
 class MapPage extends StatelessWidget {
+ 
   const MapPage({Key? key}) : super(key: key);
 
   @override
@@ -101,23 +107,45 @@ class _DemoPageState extends State<DemoPage> {
     return ((defaultHeight / imageHeight) / scale);
   }
 
-  void tapPin(String message) {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          title: const Text("この場所は"),
-          content: Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("OK"),
-              onPressed: () => Navigator.pop(context),
+  void tapPin(String message, List<String> userList) {
+  showDialog(
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        title: Center(child: Text(message)),
+        content: userList.isNotEmpty
+            ? SizedBox(
+                width: 350,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: userList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Text(
+                      userList[index],
+                      textAlign: TextAlign.center,
+                    );
+                  },
+                ),
+              )
+            : Container(
+              width: 350,
+              child: Text(
+                '$message に所在のユーザーはいません',
+                textAlign: TextAlign.center,
+              ),
             ),
-          ],
-        );
-      },
-    );
-  }
+        actions: <Widget>[
+          TextButton(
+            child: const Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
   // ピンのリストを適当に生成
   final List<PinData> pinDataList = [
@@ -176,8 +204,41 @@ class _DemoPageState extends State<DemoPage> {
                             "images/map_pin_shadow.png",
                           ),
                         ),
-                        onTap: () {
-                          tapPin(pinData.message);
+                        onTap: () async {
+
+                          if (pinData.x == 47 && pinData.y == 285){
+                            userList = await DB_map_page.viewUserList(7);
+                          }
+
+                          else if (pinData.x == 75 && pinData.y == 285){
+                            userList = await DB_map_page.viewUserList(6);
+                          }
+
+                          else if (pinData.x == 90 && pinData.y == 285){
+                            userList = await DB_map_page.viewUserList(5);
+                          }
+
+                          else if (pinData.x == 117 && pinData.y == 285){
+                            userList = await DB_map_page.viewUserList(4);
+                          }
+
+                          else if (pinData.x == 236 && pinData.y == 285){
+                            userList = await DB_map_page.viewUserList(3);
+                          }
+
+                          else if (pinData.x == 264 && pinData.y == 285){
+                            userList = await DB_map_page.viewUserList(2);
+                          }
+
+                          else if (pinData.x == 311 && pinData.y == 285){
+                            userList = await DB_map_page.viewUserList(1);
+                          }
+
+                          else if (pinData.x == 358 && pinData.y == 285){
+                            userList = await DB_map_page.viewUserList(0);
+                          }
+
+                          tapPin(pinData.message, userList);
                         },
                       ),
                     ),
