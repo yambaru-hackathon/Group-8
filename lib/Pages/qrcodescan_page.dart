@@ -74,7 +74,7 @@ class _QRcodescanPageState extends State<QRcodescanPage> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) async {
-      print(scanData.code);
+      debugPrint(scanData.code);
     });
   }
 
