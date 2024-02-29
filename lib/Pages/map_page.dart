@@ -13,7 +13,6 @@ final DB_map_page = MapPageClass();  //  DB_DB_map_pageのMapPageClass()を参�
 List<String> userList = [];
 
 class MapPage extends StatelessWidget {
- 
   const MapPage({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
@@ -81,7 +80,6 @@ class MapPage extends StatelessWidget {
 
 class DemoPage extends StatefulWidget {
   const DemoPage({Key? key}) : super(key: key);
-
   @override
   State<DemoPage> createState() => _DemoPageState();
 }
@@ -98,7 +96,7 @@ class _DemoPageState extends State<DemoPage> {
   double defaultWidth = 50.0;
   double defaultHeight = 20.0;
   double defFontSize = 20.0;
-
+  
   double calcWidth() {
     return ((defaultWidth / scale) / 2);
   }
@@ -108,46 +106,46 @@ class _DemoPageState extends State<DemoPage> {
   }
 
   void tapPin(String message, List<String> userList) {
-  showDialog(
-    context: context,
-    builder: (_) {
-      return AlertDialog(
-        title: Center(child: Text(message)),
-        content: userList.isNotEmpty
-            ? SizedBox(
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Center(child: Text(message)), // タイトルを中央に配置する
+          content: userList.isNotEmpty
+              ? SizedBox(
+                  width: 350,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: userList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Text(
+                        userList[index],
+                        textAlign: TextAlign.center,
+                      );
+                    },
+                  ),
+                )
+              : Container(
                 width: 350,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: userList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Text(
-                      userList[index],
-                      textAlign: TextAlign.center,
-                    );
-                  },
+                child: Text(
+                  '$message に所在のユーザーはいません',
+                  textAlign: TextAlign.center,
                 ),
-              )
-            : Container(
-              width: 350,
-              child: Text(
-                '$message に所在のユーザーはいません',
-                textAlign: TextAlign.center,
               ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text("OK"),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-  // ピンのリストを適当に生成
+          ],
+        );
+      },
+    );
+  }
+  
+   // ピンのリストを適当に生成
   final List<PinData> pinDataList = [
     PinData(50, 295, "情報通信工学実験室"),
     PinData(79, 295, "準備室1"),
@@ -162,132 +160,93 @@ class _DemoPageState extends State<DemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        body: InteractiveViewer(
-      // ignore: deprecated_member_use
-      alignPanAxis: false,
-      constrained: true,
-      panEnabled: true,
-      scaleEnabled: true,
-      boundaryMargin: const EdgeInsets.all(double.infinity),
-      minScale: 0.1,
-      maxScale: 10.0,
-      onInteractionUpdate: (details) {
-        setState(() {
-          // データを更新
-          scale = _transformationController.value.getMaxScaleOnAxis();
-        });
-      },
-      transformationController: _transformationController,
-      child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Image.asset(
-            'images/創造実践塔1F.png',
-            fit: BoxFit.fitWidth,
-          ),
-          for (PinData pinData in pinDataList)
-            // 一定の scale よりも小さくなったら非表示にする
-            if (scale > 0.9)
-              // Positionedで配置
-              Positioned(
-                  // 座標を左上にすると、拡大縮小時にピンの位置がズレていくので、ピンの先端がズレないように固定
-                  left: pinData.x - calcWidth(),
-                  top: pinData.y - calcHeight(),
-                  // 画像の拡大率に合わせて、ピン画像のサイズを調整
-                  width: defaultWidth / scale,
-                  height: defaultHeight / scale,
-                  child: GestureDetector(
-                    child: Container(
-                      alignment: const Alignment(0.0, 0.0),
-                      child: Image.asset("images/map_pin_shadow.png"),
-
-      body: FutureBuilder(
-        future: getImageSize('images/創造実践塔1F.png'),
-        builder: (BuildContext context, AsyncSnapshot<Size> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          Size imageSize = snapshot.data!;
-          return InteractiveViewer(
-            alignPanAxis: false,
-            constrained: true,
-            panEnabled: true,
-            scaleEnabled: true,
-            boundaryMargin: const EdgeInsets.all(double.infinity),
-            minScale: 2.0,
-            maxScale: 5.0,
-            onInteractionUpdate: (details) {
-              setState(() {
-                scale = _transformationController.value.getMaxScaleOnAxis();
-              });
-            },
-            transformationController: _transformationController,
-            child: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Image.asset(
-                  'images/創造実践塔1F.png',
-                  fit: BoxFit.fitWidth,
-                ),
-                for (PinData pinData in pinDataList)
-                  if (scale > 0.9)
-                    Positioned(
-                      left: pinData.x - calcWidth(imageSize.width),
-                      top: pinData.y - calcHeight(imageSize.height),
-                      width: defaultWidth / scale,
-                      height: defaultHeight / scale,
-                      child: GestureDetector(
-                        child: Container(
-                          alignment: const Alignment(0.0, 0.0),
-                          child: Image.asset(
-                            "images/map_pin_shadow.png",
-                          ),
-                        ),
-                        onTap: () async {
-
-                          if (pinData.x == 47 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(7);
-                          }
-
-                          else if (pinData.x == 75 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(6);
-                          }
-
-                          else if (pinData.x == 90 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(5);
-                          }
-
-                          else if (pinData.x == 117 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(4);
-                          }
-
-                          else if (pinData.x == 236 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(3);
-                          }
-
-                          else if (pinData.x == 264 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(2);
-                          }
-
-                          else if (pinData.x == 311 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(1);
-                          }
-
-                          else if (pinData.x == 358 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(0);
-                          }
-
-                          tapPin(pinData.message, userList);
-                        },
+      body: InteractiveViewer(
+        // ignore: deprecated_member_use
+        alignPanAxis: false,
+        constrained: true,
+        panEnabled: true,
+        scaleEnabled: true,
+        boundaryMargin: const EdgeInsets.all(double.infinity),
+        minScale: 0.1,
+        maxScale: 10.0,
+        onInteractionUpdate: (details) {
+          setState(() {
+            // データを更新
+            scale = _transformationController.value.getMaxScaleOnAxis();
+          });
+        },
+        transformationController: _transformationController,
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Image.asset(
+              'images/創造実践塔1F.png',
+              fit: BoxFit.fitWidth,
+            ),
+            for (PinData pinData in pinDataList)
+              // 一定の scale よりも小さくなったら非表示にする
+              if (scale > 0.9)
+                // Positionedで配置
+                Positioned(
+                    // 座標を左上にすると、拡大縮小時にピンの位置がズレていくので、ピンの先端がズレないように固定
+                    left: pinData.x - calcWidth(),
+                    top: pinData.y - calcHeight(),
+                    // 画像の拡大率に合わせて、ピン画像のサイズを調整
+                    width: defaultWidth / scale,
+                    height: defaultHeight / scale,
+                    child: GestureDetector(
+                      child: Container(
+                        alignment: const Alignment(0.0, 0.0),
+                        child: Image.asset("images/map_pin_shadow.png"),
                       ),
-                    ),
-                    onTap: () {
-                      tapPin(pinData.message);
-                    },
-                  )),
-        ],
-      ),
-    ));
+                      onTap: () async {
+
+                        if (pinData.x == 50 && pinData.y == 295){
+                          userList = await DB_map_page.viewUserList(7);
+                        }
+
+                        else if (pinData.x == 79 && pinData.y == 295){
+                          userList = await DB_map_page.viewUserList(6);
+                        }
+
+                        else if (pinData.x == 93 && pinData.y == 295){
+                          userList = await DB_map_page.viewUserList(5);
+                        }
+
+                        else if (pinData.x == 119 && pinData.y == 295){
+                          userList = await DB_map_page.viewUserList(4);
+                        }
+
+                        else if (pinData.x == 236 && pinData.y == 295){
+                          userList = await DB_map_page.viewUserList(3);
+                        }
+
+                        else if (pinData.x == 264 && pinData.y == 295){
+                          userList = await DB_map_page.viewUserList(2);
+                        }
+
+                        else if (pinData.x == 311 && pinData.y == 295){
+                          userList = await DB_map_page.viewUserList(1);
+                        }
+
+                        else if (pinData.x == 358 && pinData.y == 295){
+                          userList = await DB_map_page.viewUserList(0);
+                        }
+
+                        else {
+                          debugPrint('座標テスト');
+                        }
+
+                        tapPin(pinData.message, userList);
+                      }
+                    )
+                ),
+          ],
+        ),
+      )
+    );
   }
 }
+                  
+
+
