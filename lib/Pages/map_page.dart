@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:goup8_app/Pages/account_page.dart';
 import 'package:goup8_app/Pages/qrcodescan_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
@@ -17,6 +16,7 @@ class MapPage extends StatelessWidget {
  
   const MapPage({Key? key}) : super(key: key);
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,12 +99,12 @@ class _DemoPageState extends State<DemoPage> {
   double defaultHeight = 20.0;
   double defFontSize = 20.0;
 
-  double calcWidth(double imageWidth) {
-    return ((defaultWidth / imageWidth) / scale / 2);
+  double calcWidth() {
+    return ((defaultWidth / scale) / 2);
   }
 
-  double calcHeight(double imageHeight) {
-    return ((defaultHeight / imageHeight) / scale);
+  double calcHeight() {
+    return ((defaultHeight / scale));
   }
 
   void tapPin(String message, List<String> userList) {
@@ -149,120 +149,97 @@ class _DemoPageState extends State<DemoPage> {
 
   // ピンのリストを適当に生成
   final List<PinData> pinDataList = [
-    PinData(47, 285, "情報通信工学実験室"),
-    PinData(75, 285, "準備室1"),
-    PinData(90, 285, "準備室2"),
-    PinData(117, 285, "ネットワーク演習室"),
-    PinData(236, 285, "調理室"),
-    PinData(264, 285, "創造工房"),
-    PinData(311, 285, "中央機器分析室"),
-    PinData(358, 285, "材料特性評価室"),
+    PinData(50, 295, "情報通信工学実験室"),
+    PinData(79, 295, "準備室1"),
+    PinData(93, 295, "準備室2"),
+    PinData(119, 295, "ネットワーク演習室"),
+    PinData(236, 295, "調理室"),
+    PinData(264, 295, "創造工房"),
+    PinData(311, 295, "中央機器分析室"),
+    PinData(358, 295, "材料特性評価室"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: getImageSize('images/創造実践塔1F.png'),
-        builder: (BuildContext context, AsyncSnapshot<Size> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          Size imageSize = snapshot.data!;
-          return InteractiveViewer(
-            alignPanAxis: false,
-            constrained: true,
-            panEnabled: true,
-            scaleEnabled: true,
-            boundaryMargin: const EdgeInsets.all(double.infinity),
-            minScale: 2.0,
-            maxScale: 5.0,
-            onInteractionUpdate: (details) {
-              setState(() {
-                scale = _transformationController.value.getMaxScaleOnAxis();
-              });
-            },
-            transformationController: _transformationController,
-            child: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Image.asset(
-                  'images/創造実践塔1F.png',
-                  fit: BoxFit.fitWidth,
-                ),
-                for (PinData pinData in pinDataList)
-                  if (scale > 0.9)
-                    Positioned(
-                      left: pinData.x - calcWidth(imageSize.width),
-                      top: pinData.y - calcHeight(imageSize.height),
-                      width: defaultWidth / scale,
-                      height: defaultHeight / scale,
-                      child: GestureDetector(
-                        child: Container(
-                          alignment: const Alignment(0.0, 0.0),
-                          child: Image.asset(
-                            "images/map_pin_shadow.png",
-                          ),
-                        ),
-                        onTap: () async {
+        body: InteractiveViewer(
+      // ignore: deprecated_member_use
+      alignPanAxis: false,
+      constrained: true,
+      panEnabled: true,
+      scaleEnabled: true,
+      boundaryMargin: const EdgeInsets.all(double.infinity),
+      minScale: 0.1,
+      maxScale: 10.0,
+      onInteractionUpdate: (details) {
+        setState(() {
+          // データを更新
+          scale = _transformationController.value.getMaxScaleOnAxis();
+        });
+      },
+      transformationController: _transformationController,
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image.asset(
+            'images/創造実践塔1F.png',
+            fit: BoxFit.fitWidth,
+          ),
+          for (PinData pinData in pinDataList)
+            // 一定の scale よりも小さくなったら非表示にする
+            if (scale > 0.9)
+              // Positionedで配置
+              Positioned(
+                  // 座標を左上にすると、拡大縮小時にピンの位置がズレていくので、ピンの先端がズレないように固定
+                  left: pinData.x - calcWidth(),
+                  top: pinData.y - calcHeight(),
+                  // 画像の拡大率に合わせて、ピン画像のサイズを調整
+                  width: defaultWidth / scale,
+                  height: defaultHeight / scale,
+                  child: GestureDetector(
+                    child: Container(
+                      alignment: const Alignment(0.0, 0.0),
+                      child: Image.asset("images/map_pin_shadow.png"),
+                    ),
+                    onTap: () async {
 
-                          if (pinData.x == 47 && pinData.y == 285){
+                      if (pinData.x == 47 && pinData.y == 285){
                             userList = await DB_map_page.viewUserList(7);
                           }
 
-                          else if (pinData.x == 75 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(6);
-                          }
+                      else if (pinData.x == 75 && pinData.y == 285){
+                        userList = await DB_map_page.viewUserList(6);
+                      }
 
-                          else if (pinData.x == 90 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(5);
-                          }
+                      else if (pinData.x == 90 && pinData.y == 285){
+                        userList = await DB_map_page.viewUserList(5);
+                      }
 
-                          else if (pinData.x == 117 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(4);
-                          }
+                      else if (pinData.x == 117 && pinData.y == 285){
+                        userList = await DB_map_page.viewUserList(4);
+                      }
 
-                          else if (pinData.x == 236 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(3);
-                          }
+                      else if (pinData.x == 236 && pinData.y == 285){
+                        userList = await DB_map_page.viewUserList(3);
+                      }
 
-                          else if (pinData.x == 264 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(2);
-                          }
+                      else if (pinData.x == 264 && pinData.y == 285){
+                        userList = await DB_map_page.viewUserList(2);
+                      }
 
-                          else if (pinData.x == 311 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(1);
-                          }
+                      else if (pinData.x == 311 && pinData.y == 285){
+                        userList = await DB_map_page.viewUserList(1);
+                      }
 
-                          else if (pinData.x == 358 && pinData.y == 285){
-                            userList = await DB_map_page.viewUserList(0);
-                          }
+                      else if (pinData.x == 358 && pinData.y == 285){
+                        userList = await DB_map_page.viewUserList(0);
+                      }
 
-                          tapPin(pinData.message, userList);
-                        },
-                      ),
-                    ),
-              ],
-            ),
-          );
-        },
+                      tapPin(pinData.message, userList);
+                    },
+                  )),
+        ],
       ),
-    );
-  }
-
-  Future<Size> getImageSize(String imagePath) async {
-    Image image = Image.asset(imagePath);
-    Completer<Size> completer = Completer<Size>();
-    image.image.resolve(const ImageConfiguration()).addListener(
-      ImageStreamListener(
-        (ImageInfo info, bool _) {
-          completer.complete(Size(
-            info.image.width.toDouble(),
-            info.image.height.toDouble(),
-          ));
-        },
-      ),
-    );
-    return completer.future;
+    ));
   }
 }
