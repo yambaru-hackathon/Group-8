@@ -94,7 +94,7 @@ class _CalendarState extends State<SchedulePage> {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              selectedTextStyle: TextStyle(color: Colors.white),
+              selectedTextStyle: const TextStyle(color: Colors.white),
               todayDecoration: BoxDecoration(
                 color: Colors.purpleAccent,
                 shape: BoxShape.rectangle,
@@ -117,7 +117,7 @@ class _CalendarState extends State<SchedulePage> {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              formatButtonTextStyle: TextStyle(
+              formatButtonTextStyle: const TextStyle(
                 color: Colors.white,
               ),
             ),
@@ -139,18 +139,18 @@ class _CalendarState extends State<SchedulePage> {
                 return ListTile(
                   title: Text(events[index].title),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () async {
                       final confirm = await showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text("！確認!"),
-                              content: Text("削除しますか?"),
+                              title: const Text("！確認!"),
+                              content: const Text("削除しますか?"),
                               actions: [
                                 TextButton(
                                     onPressed: () =>
                                         Navigator.pop(context, true),
-                                    child: Text("Delete")),
+                                    child: const Text("Delete")),
                                 TextButton(
                                   onPressed: () =>
                                       Navigator.pop(context, false),
@@ -186,8 +186,8 @@ class _CalendarState extends State<SchedulePage> {
           context: context,
           isScrollControlled: true,
           builder: (context) => Container(
-            padding: EdgeInsets.all(16),
-            margin: EdgeInsets.only(top: 64),
+            padding: const EdgeInsets.all(16),
+            margin: const EdgeInsets.only(top: 64),
             child: Column(
               children: [
                 Expanded(
@@ -196,7 +196,7 @@ class _CalendarState extends State<SchedulePage> {
                       TextFormField(
                         //initialValue: _eventController.text,
                         controller: _eventController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: "タイトルを入力(必須)",
                             labelText: "Title"), // タイトル
 
@@ -211,39 +211,9 @@ class _CalendarState extends State<SchedulePage> {
                         },
                       ),
                       TextFormField(
-                        //initialValue: _datetimeController.text,
-                        controller: _datetimeController,
-                        readOnly: true, // 読み取り専用に設定する
-                        decoration: InputDecoration(
-                          labelText: "Datetime",
-                          prefixIcon: Icon(Icons.access_time),
-                        ),
-                        onTap: () async {
-                          // テキストフィールドがタップされたときに日付を選択する
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: _selectedDate ??
-                                DateTime.now(), // 初期選択日を現在の日付に設定する
-                            firstDate: DateTime(1990), // 選択可能な最初の日付
-                            lastDate: DateTime(2050), // 選択可能な最後の日付
-                          );
-                          if (pickedDate != null) {
-                            setState(() {
-                              _selectedDate = pickedDate; // 選択された日付を更新する
-                              _datetimeController.text =
-                                  _selectedDate.toString();
-                            });
-                          }
-                        },
-                        onSaved: (value) {
-                          // 入力された名前を保存
-                          _datetimeController.text = value!;
-                        },
-                      ),
-                      TextFormField(
                         //initialValue: _locationController.text,
                         controller: _locationController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "場所を入力",
                           labelText: "Location", // 場所
                           prefixIcon: Icon(Icons.location_on_rounded),
@@ -261,7 +231,7 @@ class _CalendarState extends State<SchedulePage> {
                       ),
                       TextFormField(
                         controller: _datetimeController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "2024-01-01 12:00:00(必須)",
                           labelText: "Datetime", // 日時
                           prefixIcon: Icon(Icons.access_time),
@@ -278,7 +248,7 @@ class _CalendarState extends State<SchedulePage> {
                       ),
                       TextFormField(
                         controller: _groupController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "グループ名を入力",
                           labelText: "Group", // グループ
                           prefixIcon: Icon(Icons.group),
@@ -296,7 +266,7 @@ class _CalendarState extends State<SchedulePage> {
                       TextFormField(
                         //initialValue: _guestController.text,
                         controller: _guestController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "ユーザー名を入力",
                           labelText: "Guest", // ゲスト
                           prefixIcon: Icon(Icons.person_2),
@@ -319,7 +289,7 @@ class _CalendarState extends State<SchedulePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                        child: Text("Cancel"),
+                        child: const Text("Cancel"),
                         onPressed: () {
                           //スケジュールのキャンセル
                           DB_schedule_page.resetSchedule();
@@ -327,10 +297,11 @@ class _CalendarState extends State<SchedulePage> {
                           Navigator.pop(context);
                         }),
                     TextButton(
-                      child: Text("Ok"),
+                      child: const Text("Ok"),
                       onPressed: () {
                         //スケジュールの作成
                         DB_schedule_page.createSchedule();
+                        Navigator.popUntil(context, (route) => route.isFirst);
 
                         // 入力されたイベント情報を取得
                         //String title = _eventController.text;
@@ -357,8 +328,8 @@ class _CalendarState extends State<SchedulePage> {
             ),
           ),
         ),
-        label: Text("Add Event"),
-        icon: Icon(Icons.add),
+        label: const Text("Add Event"),
+        icon: const Icon(Icons.add),
       ),
     );
   }
