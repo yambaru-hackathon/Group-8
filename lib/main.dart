@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
   }
 
   void setLogoutTimer() {
-    const logoutDuration = Duration(minutes: 10); // ログアウトまでの時間
+    const logoutDuration = Duration(minutes: 1); // ログアウトまでの時間
     Timer(logoutDuration, () async {
       await FirebaseAuth.instance.signOut();
     });
@@ -345,25 +345,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => AuthPage()),
-    );
-  }
-
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
-    // ログアウトボタン（Account）がタップされた場合※サインアウトボタンがなかったのでアカウントで代用してるだけいずれ消す
-    if (index == 4) {
-      _signOut();
-    } else {
-      setState(() {
-        _currentIndex = index;
-      });
-    }
   }
 }
