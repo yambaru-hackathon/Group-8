@@ -11,8 +11,8 @@ class NewGroupDetail extends StatefulWidget {
 }
 
 class _NewGroupDetailState extends State<NewGroupDetail> {
-
-  final DB_groupcreate_page = GroupCreatePageClass();  //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
+  final DB_groupcreate_page =
+      GroupCreatePageClass(); //  DB_groupdetail_pageのDB_groupdetail_page_class()を参照
 
   int? _selectedPermission;
   bool _selectperson = false;
@@ -20,7 +20,6 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
 
   @override
   Widget build(BuildContext context) {
-
     return Focus(
       focusNode: focusNode,
       child: GestureDetector(
@@ -57,14 +56,12 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                         textInputAction: TextInputAction.search,
                         onChanged: (value) {},
                         onSubmitted: (value) {
-                           // グループ名入力部分
+                          // グループ名入力部分
 
-                          // エンターキーを押した時文字列が空じゃないなら 
-                          if(value.isNotEmpty) {
-                            
-                            DB_groupcreate_page.addGroupName(value);     // DB_groupcreate_pageのaddGroupName関数を実行
-
-
+                          // エンターキーを押した時文字列が空じゃないなら
+                          if (value.isNotEmpty) {
+                            DB_groupcreate_page.addGroupName(
+                                value); // DB_groupcreate_pageのaddGroupName関数を実行
                           }
                           // グループ名入力部分
                         },
@@ -95,9 +92,8 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
 
                     // エンターキーを押した時文字列が空じゃないなら
                     if (value.isNotEmpty == true) {
-                      
-                      DB_groupcreate_page.addUserId(value);      // DB_groupcreate_pageのaddUserId関数を実行
-
+                      DB_groupcreate_page.addUserId(
+                          value); // DB_groupcreate_pageのaddUserId関数を実行
                     }
 
                     // ユーザー名入力部分
@@ -123,7 +119,6 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                 dense: true,
                 onChanged: (int? value) {
                   setState(() {
-
                     DB_groupcreate_page.allPermitButton();
 
                     _selectedPermission = value;
@@ -138,7 +133,6 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                 dense: true,
                 onChanged: (int? value) {
                   setState(() {
-
                     DB_groupcreate_page.notAllPermitButton();
 
                     _selectedPermission = value;
@@ -153,7 +147,6 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                 dense: true,
                 onChanged: (int? value) {
                   setState(() {
-
                     DB_groupcreate_page.selectionPermitButton();
 
                     _selectedPermission = value;
@@ -204,12 +197,11 @@ class _NewGroupDetailState extends State<NewGroupDetail> {
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: () {
-                    
                     // グループを作成する関数
-                    DB_groupcreate_page.createGroup();                     // DB_groupcreate_pageのcreateGroup関数を実行
+                    DB_groupcreate_page
+                        .createGroup(); // DB_groupcreate_pageのcreateGroup関数を実行
 
                     Navigator.popUntil(context, (route) => route.isFirst);
-
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(300, 50),

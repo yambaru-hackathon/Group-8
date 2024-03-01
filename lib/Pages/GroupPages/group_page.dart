@@ -48,8 +48,10 @@ class GroupPage extends StatelessWidget {
                     // 検索部分
                     if (value.isEmpty != true) {
                       // エンターキーを押した時文字列が空じゃないなら
-                      final DB_group_page = DB_group_page_class();  // DB_group_pageのDB_group_page_classを参照
-                      DB_group_page.readGroupSearch(value);         // DB_group_pageのreadGroupSearch(value)関数を実行
+                      final DB_group_page =
+                          DB_group_page_class(); // DB_group_pageのDB_group_page_classを参照
+                      DB_group_page.readGroupSearch(
+                          value); // DB_group_pageのreadGroupSearch(value)関数を実行
                     }
                     // 検索部分
                   },
@@ -76,8 +78,7 @@ class GroupPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => NewGroupDetail()),
+                MaterialPageRoute(builder: (context) => NewGroupDetail()),
               );
             },
             child: const Icon(

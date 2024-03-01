@@ -3,8 +3,8 @@
 // import 'package:goup8_app/Pages/GroupPages/groupdetail_page.dart';
 
 // class AddNewGroupMenber extends StatelessWidget {
-
-//   final DB_addgroupmember_page = DB_addgroupmember_page_class();  // DB_addgroupmember_pageのDB_addgroupmember_page_classを参照
+//   final DB_addgroupmember_page =
+//       DB_addgroupmember_page_class(); // DB_addgroupmember_pageのDB_addgroupmember_page_classを参照
 
 //   AddNewGroupMenber({Key? key}) : super(key: key);
 
@@ -44,17 +44,15 @@
 //                   textInputAction: TextInputAction.search,
 //                   onChanged: (value) {},
 //                   onSubmitted: (value) {
-//                     // 検索部分
-//                     // エンターキーを押した時文字列が空じゃないなら
+//                     検索部分
+//                     エンターキーを押した時文字列が空じゃないなら
 //                     if (value.isNotEmpty == true) {
-                      
-//                       DB_addgroupmember_page.readUserSearch(value);                   // DB_addgroupmember_pageのreadUserSearch(value)関数を実行
-
+//                       DB_addgroupmember_page.readUserSearch(
+//                           value); // DB_addgroupmember_pageのreadUserSearch(value)関数を実行
 //                     } else {
 //                       debugPrint('文字を入力してください');
 //                     }
-//                     // 検索部分
-
+//                     検索部分
 //                   },
 //                 ),
 //               ),
@@ -66,8 +64,8 @@
 //               borderRadius: BorderRadius.circular(10),
 //             ),
 //             onPressed: () {
-
-//               DB_addgroupmember_page.set_add_user_info_id();                    // DB_addgroupmember_pageのset_add_user_info_id()関数を実行
+//               DB_addgroupmember_page
+//                   .set_add_user_info_id(); // DB_addgroupmember_pageのset_add_user_info_id()関数を実行
 
 //               Navigator.push(
 //                 context,
