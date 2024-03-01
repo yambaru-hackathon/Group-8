@@ -99,7 +99,6 @@ class _DemoPageState extends State<DemoPage> {
   double defaultWidth = 50.0;
   double defaultHeight = 20.0;
   double defFontSize = 20.0;
-
   double calcWidth() {
     return ((defaultWidth / scale) / 2);
   }
