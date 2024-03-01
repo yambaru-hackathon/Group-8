@@ -3,6 +3,7 @@ import 'package:goup8_app/Pages/account_page.dart';
 import 'package:goup8_app/Pages/qrcodescan_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
 import 'package:goup8_app/DB_Pages/DB_map_page.dart';
+import 'dart:math';
 
 void main() {
   runApp(const MapPage());
@@ -11,6 +12,8 @@ void main() {
 final DB_map_page = MapPageClass();  //  DB_DB_map_pageのMapPageClass()を参照
 
 List<String> userList = [];
+
+Map<String, List<dynamic>>? scheduleInfo;
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -105,34 +108,201 @@ class _DemoPageState extends State<DemoPage> {
     return ((defaultHeight / scale));
   }
 
-  void tapPin(String message, List<String> userList) {
+  void tapPin(String message, List<String> userList, Map<String, List<dynamic>>? scheduleInfo) {
     showDialog(
       context: context,
       builder: (_) {
         return AlertDialog(
           title: Center(child: Text(message)), // タイトルを中央に配置する
-          content: userList.isNotEmpty
-              ? SizedBox(
-                  width: 350,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: userList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Text(
-                        userList[index],
-                        textAlign: TextAlign.center,
-                      );
-                    },
+
+          // ユーザーと予定が存在する時
+          content: (userList.isNotEmpty && scheduleInfo != null)
+          ? SizedBox(
+              height: 150,
+              width: 350,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // '所在しているユーザー'のテキストを表示
+                  Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '所在しているユーザー',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                )
-              : Container(
-                width: 350,
-                child: Text(
+                ),
+                // ユーザー情報を表示するListView.builder
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: userList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // userList の要素を取得
+                    final user = userList[index];
+                    // ユーザー情報を表示するウィジェット
+                    return Text(
+                      '$user',
+                      textAlign: TextAlign.center,
+                    );
+                  },
+                ),
+
+                // 間隔を追加
+                SizedBox(height: 16), // 16ピクセルの高さの空白を追加
+
+                // '予定が入っているグループ'のテキストを表示
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '予定が入っているグループ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                // スケジュール情報を表示するListView.builder
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: scheduleInfo['groupName']!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // scheduleInfo の要素を取得
+                    final groupName = scheduleInfo['groupName']![index];
+                    final dateTime = scheduleInfo['dateTime']![index];
+                    // スケジュール情報を表示するウィジェット
+                    return Text(
+                      '$groupName : $dateTime',
+                      textAlign: TextAlign.center,
+                    );
+                  },
+                ),
+              ],
+            ),
+          )
+
+          // ユーザーだけ存在して予定が存在しない時
+          : (userList.isNotEmpty && scheduleInfo == null)
+          ? SizedBox(
+            height: 150,
+            width: 350,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // '所在しているユーザー'のテキストを表示
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '所在しているユーザー',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                // ユーザー情報を表示するListView.builder
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: userList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // userList の要素を取得
+                    final user = userList[index];
+                    // ユーザー情報を表示するウィジェット
+                    return Text(
+                      '$user',
+                      textAlign: TextAlign.center,
+                    );
+                  },
+                ),
+
+                // 間隔を追加
+                SizedBox(height: 16), // 16ピクセルの高さの空白を追加
+
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '予定が入っているグループはありません',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+
+          // ユーザーが存在せずに予定が存在する時
+          : (userList.isEmpty && scheduleInfo != null)
+          ? SizedBox(
+            height: 150,
+            width: 350,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '$message に所在のユーザーはいません',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                // 間隔を追加
+                SizedBox(height: 16), // 16ピクセルの高さの空白を追加
+
+                // '予定が入っているグループ'のテキストを表示
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '予定が入っているグループ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                // スケジュール情報を表示するListView.builder
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: scheduleInfo['groupName']!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // scheduleInfo の要素を取得
+                    final groupName = scheduleInfo['groupName']![index];
+                    final dateTime = scheduleInfo['dateTime']![index];
+                    // スケジュール情報を表示するウィジェット
+                    return Text(
+                      '$groupName : $dateTime',
+                      textAlign: TextAlign.center,
+                    );
+                  },
+                ),
+              ],
+            ),
+          )
+
+          // ユーザーも予定も存在しない時
+          : Container(
+            height: 150,
+            width: 350,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
                   '$message に所在のユーザーはいません',
                   textAlign: TextAlign.center,
                 ),
-              ),
-          actions: <Widget>[
+
+                // 間隔を追加
+                SizedBox(height: 16), // 16ピクセルの高さの空白を追加
+
+                Text(
+                  '予定が入っているグループはありません',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            ),
+            // OK Button
+            actions: <Widget>[
             TextButton(
               child: const Text("OK"),
               onPressed: () {
@@ -203,41 +373,58 @@ class _DemoPageState extends State<DemoPage> {
 
                         if (pinData.x == 50 && pinData.y == 295){
                           userList = await DB_map_page.viewUserList(7);
+                          scheduleInfo = await DB_map_page.getScheduleInfo(7);
                         }
 
                         else if (pinData.x == 79 && pinData.y == 295){
                           userList = await DB_map_page.viewUserList(6);
+                          scheduleInfo = await DB_map_page.getScheduleInfo(6);
                         }
 
                         else if (pinData.x == 93 && pinData.y == 295){
                           userList = await DB_map_page.viewUserList(5);
+                          scheduleInfo = await DB_map_page.getScheduleInfo(5);
                         }
 
                         else if (pinData.x == 119 && pinData.y == 295){
                           userList = await DB_map_page.viewUserList(4);
+                          scheduleInfo = await DB_map_page.getScheduleInfo(4);
                         }
 
                         else if (pinData.x == 236 && pinData.y == 295){
                           userList = await DB_map_page.viewUserList(3);
+                          scheduleInfo = await DB_map_page.getScheduleInfo(3);
                         }
 
                         else if (pinData.x == 264 && pinData.y == 295){
                           userList = await DB_map_page.viewUserList(2);
+                          scheduleInfo = await DB_map_page.getScheduleInfo(2);
                         }
 
                         else if (pinData.x == 311 && pinData.y == 295){
                           userList = await DB_map_page.viewUserList(1);
+                          scheduleInfo = await DB_map_page.getScheduleInfo(1);
                         }
 
                         else if (pinData.x == 358 && pinData.y == 295){
                           userList = await DB_map_page.viewUserList(0);
+                          scheduleInfo = await DB_map_page.getScheduleInfo(0);
                         }
 
                         else {
-                          debugPrint('座標テスト');
+                          debugPrint('登録されていない座標のピン');
                         }
 
-                        tapPin(pinData.message, userList);
+                        if(scheduleInfo != null) {
+                          print('使用するグループ：${scheduleInfo?['groupName']}');
+                          print('予定時間:${scheduleInfo?['dateTime']}');
+                        }
+
+                        else {
+                          print('使用予定のグループはありません');
+                        }
+
+                        tapPin(pinData.message, userList, scheduleInfo);
                       }
                     )
                 ),
