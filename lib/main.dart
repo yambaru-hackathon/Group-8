@@ -102,7 +102,6 @@ class LoginPage extends StatelessWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
   void logUserIn(BuildContext context) async {
     try {
       final result = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -251,7 +250,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Future<void> _showDialog(BuildContext context, String title) async {
+  void _showDialog(BuildContext context, String title) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
