@@ -4,15 +4,15 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:goup8_app/components/my_button.dart';
 import 'package:goup8_app/components/my_textfield.dart';
-import 'firebase_options.dart';
 import 'package:goup8_app/Pages/account_page.dart';
 import 'package:goup8_app/Pages/GroupPages/group_page.dart';
 import 'package:goup8_app/Pages/map_page.dart';
 import 'package:goup8_app/Pages/schedule/schedule_page.dart';
 import 'package:goup8_app/Pages/search_page.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:provider/provider.dart';
 import 'package:device_info/device_info.dart';
@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
     setLogoutTimer();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
       home: FutureBuilder(
         future: FirebaseAuth.instance.authStateChanges().first,
         builder: (context, AsyncSnapshot<User?> snapshot) {
@@ -84,6 +85,10 @@ class MyApp extends StatelessWidget {
                 : AuthPage();
           }
         },
+      ),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
     );
   }
