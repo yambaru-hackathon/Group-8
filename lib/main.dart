@@ -68,7 +68,7 @@ class LoginPage extends StatelessWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  void logUserIn(BuildContext context) async {
+  Future<void> logUserIn(BuildContext context) async {
     try {
       final result = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
@@ -82,8 +82,8 @@ class LoginPage extends StatelessWidget {
         MaterialPageRoute(builder: (context) => MyHomePage()),
       );
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
       String errorMessage = 'ログインエラーが発生しました。';
+
       if (e.code == 'user-not-found') {
         errorMessage = 'アカウントが見つかりません';
       } else if (e.code == 'wrong-password') {
@@ -99,8 +99,12 @@ class LoginPage extends StatelessWidget {
             actions: <Widget>[
               TextButton(
                 child: Text('OK'),
-                onPressed: () {
+                onPressed: () async {
                   Navigator.of(context).pop();
+                  await Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthPage()),
+                  );
                 },
               ),
             ],
@@ -110,7 +114,7 @@ class LoginPage extends StatelessWidget {
     }
   }
 
-  void signUserIn(BuildContext context) async {
+  Future<void> signUserIn(BuildContext context) async {
     try {
       final UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
