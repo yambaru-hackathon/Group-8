@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SearchResultsPage extends StatelessWidget {
   final List<String> dataList;
-  SearchResultsPage({required this.dataList});
+  const SearchResultsPage({super.key, required this.dataList});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
