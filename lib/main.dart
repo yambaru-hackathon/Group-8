@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,53 +14,17 @@ import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:provider/provider.dart';
-import 'package:device_info/device_info.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   final db = FirebaseFirestore.instance;
-  handleDeviceAccount();
 
   runApp(const MyApp());
-}
-
-Future<String> getDeviceId() async {
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  if (Platform.isAndroid) {
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    return androidInfo.androidId; // Androidの場合、androidIdを取得
-  } else if (Platform.isIOS) {
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    return iosInfo.identifierForVendor; // iOSの場合、identifierForVendorを取得
-  }
-  return '';
-}
-
-void handleDeviceAccount() async {
-  String deviceId = await getDeviceId();
-  FirebaseAuth auth = FirebaseAuth.instance;
-
-  try {
-    UserCredential userCredential = await auth.signInAnonymously();
-    User? user = userCredential.user;
-
-    Timestamp lastLoginTime =
-        Timestamp.fromDate(user?.metadata?.lastSignInTime ?? DateTime.now());
-
-    await FirebaseFirestore.instance.collection('User').add(
-      {
-        'email': user?.email,
-        'createAt': Timestamp.now(),
-        'lastLoginTime': lastLoginTime,
-      },
-    );
-  } catch (e) {
-    print("Anonymous login error: $e");
-  }
 }
 
 class MyApp extends StatelessWidget {
@@ -80,9 +43,7 @@ class MyApp extends StatelessWidget {
             return CircularProgressIndicator();
           } else {
             // ログイン状態に応じて遷移
-            return snapshot.hasData
-                ? const MyHomePage(title: 'HOME')
-                : AuthPage();
+            return snapshot.hasData ? const MyHomePage() : AuthPage();
           }
         },
       ),
@@ -118,7 +79,7 @@ class LoginPage extends StatelessWidget {
       // ログイン成功時の処理
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MyHomePage(title: 'HOME')),
+        MaterialPageRoute(builder: (context) => MyHomePage()),
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
@@ -292,9 +253,7 @@ class AuthPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           } else if (snapshot.hasData) {
-            return const MyHomePage(
-              title: 'HOME',
-            );
+            return const MyHomePage();
           } else {
             return ChangeNotifierProvider(
               create: (context) => SignUpModel(),
@@ -344,9 +303,9 @@ class SignUpModel extends ChangeNotifier {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({
+    super.key,
+  });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -361,7 +320,6 @@ class _MyHomePageState extends State<MyHomePage> {
     const GroupPage(),
     const AccountPage(),
   };
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
